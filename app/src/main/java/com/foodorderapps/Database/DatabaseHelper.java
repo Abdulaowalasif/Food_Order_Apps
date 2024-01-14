@@ -97,7 +97,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
 
-        if (cursor.moveToFirst()) {
             while (cursor.moveToNext()) {
                 OrdersModel model = new OrdersModel();
                 model.setOrderNumber(String.valueOf(cursor.getInt(cursor.getColumnIndex(ID))));
@@ -106,7 +105,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 model.setImg(cursor.getInt(cursor.getColumnIndex(IMAGE)));
                 orderList.add(model);
             }
-        }
         cursor.close();
         database.close();
         return orderList;
