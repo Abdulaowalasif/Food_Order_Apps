@@ -26,7 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
 
-        Intent intent=new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         DatabaseHelper helper = new DatabaseHelper(this);
         if (getIntent().getIntExtra("type", 0) == 1) {
@@ -58,19 +58,30 @@ public class DetailsActivity extends AppCompatActivity {
             binding.DetailsDescriptionId.setText(description);
 
             binding.DetailsOrderBtnId.setOnClickListener(v -> {
+                String name = "", phone = "";
+                if (binding.DetailsNameId.getText().toString().isEmpty()) {
+                    binding.DetailsNameId.setError("Enter your name");
+                } else if (binding.DetailsPhoneId.getText().toString().isEmpty()) {
+                    binding.DetailsPhoneId.setError("Enter your phone number");
+                } else {
+                    name = binding.DetailsNameId.getText().toString();
+                    phone = binding.DetailsPhoneId.getText().toString();
+                }
+
                 boolean isInserted = helper.insertOrder(Integer.parseInt(binding.DetailsPriceId.getText().toString()),
                         image,
                         Integer.parseInt(binding.DetailsQuantityId.getText().toString()),
-                        binding.DetailsNameId.getText().toString(),
-                        binding.DetailsPhoneId.getText().toString(),
+                        name,
+                        phone,
                         description,
                         foodName);
+
                 if (isInserted) {
                     Toast.makeText(this, "Order placed successfully.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "Failed to placed order.PLease try again.", Toast.LENGTH_SHORT).show();
                 }
-             startActivity(intent);
+                startActivity(intent);
                 finish();
             });
         } else {
@@ -78,9 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
             Cursor cursor = helper.getOrderByID(id);
             if (cursor.moveToFirst()) {
                 int image = cursor.getInt(5);
-                // Set image resource
                 binding.detailsImageViewId.setImageResource(image);
-                // Set text values
                 binding.DetailsPriceId.setText(String.valueOf(cursor.getInt(3)));
                 binding.detailsFoodNameID.setText(cursor.getString(7));
                 binding.DetailsDescriptionId.setText(cursor.getString(6));
