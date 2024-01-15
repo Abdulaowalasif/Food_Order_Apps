@@ -66,23 +66,23 @@ public class DetailsActivity extends AppCompatActivity {
                 } else {
                     name = binding.DetailsNameId.getText().toString();
                     phone = binding.DetailsPhoneId.getText().toString();
+                    boolean isInserted = helper.insertOrder(Integer.parseInt(binding.DetailsPriceId.getText().toString()),
+                            image,
+                            Integer.parseInt(binding.DetailsQuantityId.getText().toString()),
+                            name,
+                            phone,
+                            description,
+                            foodName);
+
+                    if (isInserted) {
+                        Toast.makeText(this, "Order placed successfully.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Failed to placed order.PLease try again.", Toast.LENGTH_SHORT).show();
+                    }
+                    startActivity(intent);
+                    finish();
                 }
 
-                boolean isInserted = helper.insertOrder(Integer.parseInt(binding.DetailsPriceId.getText().toString()),
-                        image,
-                        Integer.parseInt(binding.DetailsQuantityId.getText().toString()),
-                        name,
-                        phone,
-                        description,
-                        foodName);
-
-                if (isInserted) {
-                    Toast.makeText(this, "Order placed successfully.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Failed to placed order.PLease try again.", Toast.LENGTH_SHORT).show();
-                }
-                startActivity(intent);
-                finish();
             });
         } else {
             int id = getIntent().getIntExtra("id", 0);
