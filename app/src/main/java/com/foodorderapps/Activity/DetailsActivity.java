@@ -124,7 +124,8 @@ public class DetailsActivity extends AppCompatActivity {
                             binding.DetailsNameId.getText().toString(),
                             binding.DetailsPhoneId.getText().toString(),
                             updatedQuantity,
-                            id
+                            id,
+                            Integer.parseInt(binding.DetailsPriceId.getText().toString())
                     );
                     if (isUpdated) {
                         Toast.makeText(DetailsActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();

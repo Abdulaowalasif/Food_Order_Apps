@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + NAME + " TEXT ," + PHONE + " TEXT ," + PRICE + " int ," + QUANTITY + " int ," + IMAGE + " int ,"
             + DESCRIPTION + " TEXT ," + FOOD_NAME + " TEXT )";
 
-    public DatabaseHelper(@Nullable Context context) {
+    public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -65,10 +65,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.delete(TABLE_NAME, ID + "=" + id, null);
     }
 
-    public boolean updateOrder(String name, String phone, int quantity, int id) {
+    public boolean updateOrder(String name, String phone, int quantity, int id,int price) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME, name);
+        values.put(PRICE,price);
         values.put(PHONE, phone);
         values.put(QUANTITY, quantity);
         try {
