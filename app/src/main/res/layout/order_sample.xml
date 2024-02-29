@@ -10,9 +10,11 @@
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="15dp"
         android:id="@+id/CardView"
+
+
         >
         <LinearLayout
-            android:background="#2196F3"
+            android:background="@drawable/menuborder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -21,8 +23,9 @@
             <ImageView
                 android:id="@+id/OrderImageView"
                 android:layout_width="0dp"
+                android:layout_margin="7dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/burger"
+                android:src="@drawable/set_menu_vat"
                 android:scaleType="centerCrop"
                 android:layout_weight="1"/>
             <LinearLayout
@@ -38,7 +41,7 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="15dp"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     />
                 <LinearLayout
@@ -49,8 +52,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Order Number:"
+                        android:text="Order Number: "
                         android:layout_marginLeft="15dp"
+                        android:textColor="@color/white"
                         android:textSize="17sp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         />
@@ -60,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:text="123456"
                         android:textSize="17sp"
-                        android:textColor="#F4FF81"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         />
                 </LinearLayout>
@@ -75,15 +79,15 @@
                         android:text="Price "
                         android:layout_marginLeft="15dp"
                         android:textSize="17sp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$:"
+                        android:text="৳: "
                         android:textSize="17sp"
-                        android:textColor="#FF0000"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         />
                     <TextView
@@ -92,7 +96,32 @@
                         android:layout_height="wrap_content"
                         android:text="5"
                         android:textSize="17sp"
-                        android:textColor="#FF0000"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quantity: "
+                        android:layout_marginLeft="15dp"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        />
+                    <TextView
+                        android:id="@+id/OrderQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         />
                 </LinearLayout>

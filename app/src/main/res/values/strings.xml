@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">food Order App</string>
-    <string name="description">   descriptionFood      Meaty portobello mushrooms make for the perfect vegetarian burger!</string>
-    <string name="upBtn">Update Now</string>
+    <string name="app_name">Food Order App</string>
+    <string name="description">Food Description</string>
+    <string name="upBtn">Update Your Order</string>
+    <string name="OpenDrawer">Open navigation drawer</string>
+    <string name="CloseDrawer">Close navigation drawer</string>
 </resources>

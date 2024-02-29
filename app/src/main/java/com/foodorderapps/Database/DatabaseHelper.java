@@ -15,12 +15,13 @@ import com.foodorderapps.Models.OrdersModel;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    final static int VERSION = 3;
+    final static int VERSION = 4;
     final static String DATABASE_NAME = "my_database.db";
     final static String TABLE_NAME = "Orders";
     final static String ID = "Id";
     final static String NAME = "Name";
     final static String PHONE = "Phone";
+    final static String ADDRESS = "Address";
     final static String PRICE = "Price";
     final static String IMAGE = "Image";
     final static String QUANTITY = "Quantity";
@@ -28,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String FOOD_NAME = "FoodName";
     final static String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     final static String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,"
-            + NAME + " TEXT ," + PHONE + " TEXT ," + PRICE + " int ," + QUANTITY + " int ," + IMAGE + " int ,"
+            + NAME + " TEXT ," + PHONE + " TEXT ," + ADDRESS + " TEXT ," + PRICE + " int ," + QUANTITY + " int ," + IMAGE + " int ,"
             + DESCRIPTION + " TEXT ," + FOOD_NAME + " TEXT )";
 
     public DatabaseHelper(Context context) {
@@ -46,7 +47,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertOrder(int price, int image, int quantity, String name, String phone, String description, String foodName) {
+    public boolean insertOrder(int price, int image, int quantity, String name, String phone,String address, String description, String foodName) {
         SQLiteDatabase database = getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(PRICE, price);
@@ -54,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(QUANTITY, quantity);
         values.put(NAME, name);
         values.put(PHONE, phone);
+        values.put(ADDRESS, address);
         values.put(DESCRIPTION, description);
         values.put(FOOD_NAME, foodName);
         long id = database.insert(TABLE_NAME, null, values);
@@ -65,12 +67,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.delete(TABLE_NAME, ID + "=" + id, null);
     }
 
-    public boolean updateOrder(String name, String phone, int quantity, int id,int price) {
+    public boolean updateOrder(String name, String phone, String address, int quantity, int id,int price) {
         SQLiteDatabase database = this.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(NAME, name);
         values.put(PRICE,price);
         values.put(PHONE, phone);
+        values.put(ADDRESS, address);
         values.put(QUANTITY, quantity);
         try {
             long UID = database.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
@@ -102,6 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 OrdersModel model = new OrdersModel();
                 model.setOrderNumber(String.valueOf(cursor.getInt(cursor.getColumnIndex(ID))));
                 model.setOrderPrice(String.valueOf(cursor.getInt(cursor.getColumnIndex(PRICE))));
+                model.setOrderQuantity(String.valueOf(cursor.getInt(cursor.getColumnIndex(QUANTITY))));
                 model.setOrderTitle(cursor.getString(cursor.getColumnIndex(FOOD_NAME)));
                 model.setImg(cursor.getInt(cursor.getColumnIndex(IMAGE)));
                 orderList.add(model);

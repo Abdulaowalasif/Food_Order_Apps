@@ -45,7 +45,7 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             });
             binding.detailsSubscriptId.setOnClickListener(v -> {
-                if (quantity > 1) {
+                 if (quantity > 1) {
                     quantity--;
                     binding.DetailsQuantityId.setText(String.valueOf(quantity));
                     binding.DetailsPriceId.setText(String.valueOf((totalPrice * quantity)));
@@ -58,19 +58,24 @@ public class DetailsActivity extends AppCompatActivity {
             binding.DetailsDescriptionId.setText(description);
 
             binding.DetailsOrderBtnId.setOnClickListener(v -> {
-                String name = "", phone = "";
+                String name = "", phone = "",address = "";
                 if (binding.DetailsNameId.getText().toString().isEmpty()) {
                     binding.DetailsNameId.setError("Enter your name");
                 } else if (binding.DetailsPhoneId.getText().toString().isEmpty()) {
                     binding.DetailsPhoneId.setError("Enter your phone number");
+                }
+                else if (binding.DetailsAddressId.getText().toString().isEmpty()) {
+                    binding.DetailsAddressId.setError("Enter your address ");
                 } else {
                     name = binding.DetailsNameId.getText().toString();
                     phone = binding.DetailsPhoneId.getText().toString();
+                    address = binding.DetailsAddressId.getText().toString();
                     boolean isInserted = helper.insertOrder(Integer.parseInt(binding.DetailsPriceId.getText().toString()),
                             image,
                             Integer.parseInt(binding.DetailsQuantityId.getText().toString()),
                             name,
                             phone,
+                            address,
                             description,
                             foodName);
 
@@ -88,17 +93,18 @@ public class DetailsActivity extends AppCompatActivity {
             int id = getIntent().getIntExtra("id", 0);
             Cursor cursor = helper.getOrderByID(id);
             if (cursor.moveToFirst()) {
-                int image = cursor.getInt(5);
+                int image = cursor.getInt(6);
                 binding.detailsImageViewId.setImageResource(image);
-                binding.DetailsPriceId.setText(String.valueOf(cursor.getInt(3)));
-                binding.detailsFoodNameID.setText(cursor.getString(7));
-                binding.DetailsDescriptionId.setText(cursor.getString(6));
+                binding.DetailsPriceId.setText(String.valueOf(cursor.getInt(4)));
+                binding.detailsFoodNameID.setText(cursor.getString(8));
+                binding.DetailsDescriptionId.setText(cursor.getString(7));
                 binding.DetailsNameId.setText(cursor.getString(1));
                 binding.DetailsPhoneId.setText(cursor.getString(2));
-                binding.DetailsQuantityId.setText(String.valueOf(cursor.getInt(4)));
+                binding.DetailsAddressId.setText(cursor.getString(3));
+                binding.DetailsQuantityId.setText(String.valueOf(cursor.getInt(5)));
 
-                totalPrice = cursor.getInt(3);
-                quantity = cursor.getInt(4);
+                totalPrice = cursor.getInt(4);
+                quantity = cursor.getInt(5);
                 int singleUnitPrice = (totalPrice / quantity);
 
                 binding.DetailsAddId.setOnClickListener(v -> {
@@ -123,6 +129,7 @@ public class DetailsActivity extends AppCompatActivity {
                     boolean isUpdated = helper.updateOrder(
                             binding.DetailsNameId.getText().toString(),
                             binding.DetailsPhoneId.getText().toString(),
+                            binding.DetailsAddressId.getText().toString(),
                             updatedQuantity,
                             id,
                             Integer.parseInt(binding.DetailsPriceId.getText().toString())

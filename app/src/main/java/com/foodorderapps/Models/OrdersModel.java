@@ -2,12 +2,13 @@ package com.foodorderapps.Models;
 
 public class OrdersModel {
     int img;
-    String orderTitle,orderPrice,orderNumber;
+    String orderTitle,orderPrice,orderQuantity,orderNumber;
 
-    public OrdersModel(int img, String orderTitle, String orderPrice, String orderNumber) {
+    public OrdersModel(int img, String orderTitle, String orderPrice,String orderQuantity, String orderNumber) {
         this.img = img;
         this.orderTitle = orderTitle;
         this.orderPrice = orderPrice;
+        this.orderQuantity = orderQuantity;
         this.orderNumber = orderNumber;
     }
 
@@ -45,5 +46,13 @@ public class OrdersModel {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getOrderQuantity() {
+        return orderQuantity;
+    }
+
+    public void setOrderQuantity(String orderQuantity) {
+        this.orderQuantity = orderQuantity;
     }
 }
