@@ -6,16 +6,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
-import androidx.annotation.Nullable;
 
 import com.foodorderapps.Models.OrdersModel;
 
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    final static int VERSION = 4;
+    final static int VERSION = 5;
     final static String DATABASE_NAME = "my_database.db";
     final static String TABLE_NAME = "Orders";
     final static String ID = "Id";
@@ -30,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
     final static String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT ,"
             + NAME + " TEXT ," + PHONE + " TEXT ," + ADDRESS + " TEXT ," + PRICE + " int ," + QUANTITY + " int ," + IMAGE + " int ,"
-            + DESCRIPTION + " TEXT ," + FOOD_NAME + " TEXT )";
+            + DESCRIPTION + " TEXT ," + FOOD_NAME + " TEXT)";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -94,7 +91,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-
     @SuppressLint("Range")
     public ArrayList<OrdersModel> getOrder() {
         ArrayList<OrdersModel> orderList = new ArrayList<>();
@@ -114,4 +110,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.close();
         return orderList;
     }
+
 }

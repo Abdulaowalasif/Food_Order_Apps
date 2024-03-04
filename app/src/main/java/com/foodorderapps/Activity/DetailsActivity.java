@@ -9,22 +9,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.foodorderapps.Database.DatabaseHelper;
+import com.foodorderapps.Models.FirebaseModel;
 import com.foodorderapps.R;
 import com.foodorderapps.databinding.ActivityDetailsBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class DetailsActivity extends AppCompatActivity {
     ActivityDetailsBinding binding;
     int quantity = 1;
     int totalPrice;
+    FirebaseDatabase database=FirebaseDatabase.getInstance();
+    DatabaseReference reference= database.getReference("Users");
+    FirebaseAuth auth=FirebaseAuth.getInstance();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         Intent intent = new Intent(this, MainActivity.class);
 
@@ -56,6 +67,22 @@ public class DetailsActivity extends AppCompatActivity {
             binding.DetailsPriceId.setText(price);
             binding.detailsFoodNameID.setText(foodName);
             binding.DetailsDescriptionId.setText(description);
+            {
+
+                reference.child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        FirebaseModel mode=snapshot.getValue(FirebaseModel.class);
+                        binding.DetailsNameId.setText(mode.getUsername());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
 
             binding.DetailsOrderBtnId.setOnClickListener(v -> {
                 String name = "", phone = "",address = "";
@@ -103,6 +130,7 @@ public class DetailsActivity extends AppCompatActivity {
                 binding.DetailsAddressId.setText(cursor.getString(3));
                 binding.DetailsQuantityId.setText(String.valueOf(cursor.getInt(5)));
 
+
                 totalPrice = cursor.getInt(4);
                 quantity = cursor.getInt(5);
                 int singleUnitPrice = (totalPrice / quantity);
@@ -144,7 +172,6 @@ public class DetailsActivity extends AppCompatActivity {
                 });
             }
             cursor.close();
-
         }
     }
 }

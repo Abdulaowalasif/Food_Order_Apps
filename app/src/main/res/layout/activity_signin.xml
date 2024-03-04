@@ -46,11 +46,10 @@
         android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:progressTint="#FE5722"
         android:backgroundTint="#FE5722"
         android:foregroundTint="#FE5722"
-        android:visibility="gone"
-        />
+        android:progressTint="#FE5722"
+        android:visibility="gone" />
 
 
     <LinearLayout

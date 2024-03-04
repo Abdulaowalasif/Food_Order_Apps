@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -18,13 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Signin extends AppCompatActivity {
     ActivitySigninBinding binding;
     FirebaseAuth auth = FirebaseAuth.getInstance();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySigninBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         binding.loginregister.setOnClickListener(v -> {
             startActivity(new Intent(Signin.this, Register.class));
@@ -55,6 +54,7 @@ public class Signin extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
+                    binding.progressbar.setVisibility(View.GONE);
                     Toast.makeText(Signin.this, "Login failed", Toast.LENGTH_SHORT).show();
                 }
             }

@@ -18,6 +18,8 @@
     android:gravity="bottom"
     android:layout_weight="1"
     >
+
+
     <EditText
         android:id="@+id/regfirstname"
         android:layout_width="match_parent"

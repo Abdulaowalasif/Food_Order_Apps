@@ -21,7 +21,6 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         DatabaseHelper helper = new DatabaseHelper(this);
         ArrayList<OrdersModel> list = helper.getOrder();
